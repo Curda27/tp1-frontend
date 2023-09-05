@@ -3,8 +3,7 @@ import { Category } from '../models';
 
 @Component({
 	selector: 'app-categories',
-	templateUrl: './categories.component.html',
-	styleUrls: ['./categories.component.css']
+	templateUrl: './categories.component.html'
 })
 export class CategoriesComponent {
 	categories: Category[] = [];

@@ -3,8 +3,7 @@ import { Category, Person } from '../models';
 
 @Component({
 	selector: 'app-home',
-	templateUrl: './home.component.html',
-	styleUrls: ['./home.component.css']
+	templateUrl: './home.component.html'
 })
 export class HomeComponent {
 	loadData(): void {

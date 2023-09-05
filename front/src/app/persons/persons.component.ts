@@ -3,8 +3,7 @@ import { Person } from '../models';
 
 @Component({
 	selector: 'app-persons',
-	templateUrl: './persons.component.html',
-	styleUrls: ['./persons.component.css']
+	templateUrl: './persons.component.html'
 })
 export class PersonsComponent implements OnInit {
 	persons: Person[] = [];
