@@ -17,8 +17,8 @@ export class Person {
 	cedula: string;
 	flag_is_doctor: boolean;
 
-	constructor(id: number, name: string,
-		lastName: string, phone: string, email: string, cedula: string, flag_is_doctor: boolean) {
+	constructor(id: number, name: string, lastName: string,
+		phone: string, email: string, cedula: string, flag_is_doctor: boolean) {
 		this.id = id;
 		this.name = name;
 		this.lastName = lastName;
@@ -26,5 +26,9 @@ export class Person {
 		this.email = email;
 		this.cedula = cedula;
 		this.flag_is_doctor = flag_is_doctor;
+	}
+
+	update(person: Partial<Person>) {
+		Object.assign(this, person);
 	}
 }
