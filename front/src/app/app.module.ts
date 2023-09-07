@@ -8,6 +8,8 @@ import { HeaderComponent } from './header/header.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { CreatePersonComponent } from './dialogs/create-person.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CreateRecordComponent } from 'src/app/dialogs/create-record.component';
+import { MedicalRecordComponent } from './medical-record/medical-record.component';
 
 @NgModule({
 	declarations: [
@@ -15,13 +17,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 		PersonsComponent,
 		Page404Component,
 		HeaderComponent,
-		CategoriesComponent
+		CategoriesComponent,
+    MedicalRecordComponent
+
 	],
 	imports: [
 		BrowserModule,
 		BrowserAnimationsModule,
 		AppRoutingModule,
-		CreatePersonComponent
+		CreatePersonComponent,
+    CreateRecordComponent
 	],
 	providers: [],
 	bootstrap: [AppComponent]

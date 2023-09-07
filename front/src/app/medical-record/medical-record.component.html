@@ -1,0 +1,35 @@
+<button class="button" (click)="openCreateDialog()">Crear</button>
+<div class="tablecontainer">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Doctor</th>
+        <th>Paciente</th>
+        <th>Fecha</th>
+        <th>Categoria</th>
+        <th>Motivo</th>
+        <th>Diágnostico</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr *ngIf="filteredRecords.length == 0; else table_data">
+        <td colspan="7" style="text-align: center;">No hay fichas registradas</td>
+      </tr>
+      <ng-template #table_data>
+        <ng-container *ngFor="let record of filteredRecords" #table>
+          <tr *ngIf="record.id !== -1">
+            <td>{{ record.id }}</td>
+            <td>{{ record.doctor.name }}</td>
+            <td>{{ record.patient.name }}</td>
+            <td>{{ record.date | date : 'dd/MM/YYYY' }}</td>
+            <td>{{ record.category.description }}</td>
+            <td>{{ record.reason }}</td>
+            <td>{{ record.diagnostic }}</td>
+          </tr>
+        </ng-container>
+      </ng-template>
+    </tbody>
+  </table>
+</div>

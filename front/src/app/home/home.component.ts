@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Category, Person } from '../models';
+import { Category, MedicalRecord, Person } from '../models';
 
 @Component({
 	selector: 'app-home',
@@ -17,8 +17,20 @@ export class HomeComponent {
 		persons.push(person2);
 		categories.push(category1);
 		categories.push(category2);
-		localStorage.setItem('persons', JSON.stringify(persons));
-		localStorage.setItem('categories', JSON.stringify(categories));
+    const records: MedicalRecord[] = [
+      {
+        category: category1,
+        patient: person1,
+        doctor: person2,
+        date: new Date(),
+        diagnostic: 'diagnostic',
+        reason: 'reason',
+        id: 1,
+      },
+    ];
+    localStorage.setItem('persons', JSON.stringify(persons));
+    localStorage.setItem('categories', JSON.stringify(categories));
+    localStorage.setItem('medicalRecords', JSON.stringify(records));
 		alert("Datos Iniciales Cargados Correctamente");
 	}
 

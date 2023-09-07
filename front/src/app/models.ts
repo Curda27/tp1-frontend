@@ -32,3 +32,21 @@ export class Person {
 		Object.assign(this, person);
 	}
 }
+
+export type MedicalRecord = {
+  id: number;
+  patient: Person;
+  doctor: Person;
+  date: Date;
+  reason: string;
+  category: Category;
+  diagnostic: string;
+}
+
+export type MedicalRecordFilters = {
+  patient?: string;
+  doctor?: string;
+  categoryId?: number;
+  date_from?: string;
+  date_to?: string;
+}
