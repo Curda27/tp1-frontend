@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MedicalRecord, MedicalRecordFilters } from '../models';
+import { Category, MedicalRecord, MedicalRecordFilters } from '../models';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateRecordComponent } from '../dialogs/create-record.component';
 
@@ -10,6 +10,7 @@ import { CreateRecordComponent } from '../dialogs/create-record.component';
 export class MedicalRecordComponent implements OnInit {
   allRecords: MedicalRecord[] = [];
   filteredRecords: MedicalRecord[] = [];
+  categories: Category[] = [];
 
   tableFilters: MedicalRecordFilters = {};
 
@@ -17,8 +18,13 @@ export class MedicalRecordComponent implements OnInit {
 
   ngOnInit(): void {
     this.refreshList();
+    this.getCategories();
   }
 
+  getCategories() {
+    const categoriesStr = localStorage.getItem('categories') ?? '[]';
+    this.categories = JSON.parse(categoriesStr);
+  }
   openCreateDialog(): void {
     const dialogRef = this.dialog.open(CreateRecordComponent, {
       //TODO: arreglar dimension
@@ -42,18 +48,25 @@ export class MedicalRecordComponent implements OnInit {
 
   filter(): void {
     this.filteredRecords = this.allRecords;
-    const { patient, doctor, categoryId, date_from, date_to } =
-      this.tableFilters;
+    const {
+      patient,
+      doctor,
+      categoryId,
+      dateFrom: date_from,
+      dateTo: date_to,
+    } = this.tableFilters;
     if (patient) {
       this.filteredRecords = this.filteredRecords.filter(
         (record) =>
-          record.patient.name === patient || record.patient.lastName === patient
+          record.patient.name.includes(patient) ||
+          record.patient.lastName.includes(patient)
       );
     }
     if (doctor) {
       this.filteredRecords = this.filteredRecords.filter(
         (record) =>
-          record.doctor.name === doctor || record.doctor.lastName === doctor
+          record.doctor.name.includes(doctor) ||
+          record.doctor.lastName.includes(doctor)
       );
     }
     if (categoryId) {
@@ -63,14 +76,18 @@ export class MedicalRecordComponent implements OnInit {
     }
     if (date_from) {
       this.filteredRecords = this.filteredRecords.filter(
-        (record) => record.date >= new Date(date_from)
+        (record) => new Date(record.date) >= new Date(date_from)
       );
     }
     if (date_to) {
       this.filteredRecords = this.filteredRecords.filter(
-        (record) => record.date <= new Date(date_to)
+        (record) => new Date(record.date) <= new Date(date_to)
       );
     }
+  }
+  clearFilters() {
+    this.tableFilters = {};
+    this.filter();
   }
 
   save(): void {

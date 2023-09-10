@@ -11,10 +11,14 @@ export class HomeComponent {
 		let categories: Category[] = [];
 		let person1 = new Person(1, 'John', 'Doe', '595123456789', 'asdf@example.com', '123456', false);
 		let person2 = new Person(2, 'Mary', 'Doe', '595321456789', 'qwer@example.com', '123457', true);
+    let person3 = new Person(3, 'Fernando', 'Smith', '595321456789', 'fer@example.com', '123456', false);
+    let person4 = new Person(4, 'Doctor', 'Gonzalez', '595321456789', 'doctor@example.com', '123456', true);
 		let category1 = new Category(1, 'Category 1');
-		let category2 = new Category(1, 'Category 2');
+		let category2 = new Category(2, 'Category 2');
 		persons.push(person1);
 		persons.push(person2);
+    persons.push(person3);
+    persons.push(person4);
 		categories.push(category1);
 		categories.push(category2);
     const records: MedicalRecord[] = [
@@ -26,6 +30,15 @@ export class HomeComponent {
         diagnostic: 'diagnostic',
         reason: 'reason',
         id: 1,
+      },
+      {
+        category: category2,
+        patient: person3,
+        doctor: person4,
+        date: new Date("2023-09-01 00:00:00"),
+        diagnostic: 'diagnostic 123',
+        reason: 'reason 123',
+        id: 2,
       },
     ];
     localStorage.setItem('persons', JSON.stringify(persons));

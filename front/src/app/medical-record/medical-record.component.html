@@ -1,4 +1,47 @@
 <button class="button" (click)="openCreateDialog()">Crear</button>
+
+<div class="table-filters">
+  <mat-form-field hideRequiredMarker="true" class="table-filters__item">
+    <mat-label>Paciente</mat-label>
+    <input required matInput [(ngModel)]="tableFilters.patient" />
+  </mat-form-field>
+
+  <mat-form-field hideRequiredMarker="true" class="table-filters__item">
+    <mat-label>Doctor</mat-label>
+    <input required matInput [(ngModel)]="tableFilters.doctor" />
+  </mat-form-field>
+
+  <mat-form-field class="table-filters__item">
+    <mat-label>Categoría</mat-label>
+    <mat-select [(ngModel)]="tableFilters.categoryId">
+      <mat-option *ngFor="let category of categories" [value]="category.id">
+        {{ category.description }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="table-filters__item">
+    <mat-label>Ingrese un rango de fechas</mat-label>
+    <mat-date-range-input [rangePicker]="picker">
+      <input
+        matStartDate
+        placeholder="Fecha desde"
+        [(ngModel)]="tableFilters.dateFrom"
+      />
+      <input
+        matEndDate
+        placeholder="Fecha hasta"
+        [(ngModel)]="tableFilters.dateTo"
+      />
+    </mat-date-range-input>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+  </mat-form-field>
+  <div>
+    <button class="button" (click)="filter()">Filtrar</button>
+    <button class="button" (click)="clearFilters()">Limpiar</button>
+  </div>
+</div>
 <div class="tablecontainer">
   <table class="table">
     <thead>
@@ -13,16 +56,17 @@
       </tr>
     </thead>
     <tbody>
-
       <tr *ngIf="filteredRecords.length == 0; else table_data">
-        <td colspan="7" style="text-align: center;">No hay fichas registradas</td>
+        <td colspan="7" style="text-align: center">
+          No hay fichas registradas
+        </td>
       </tr>
       <ng-template #table_data>
         <ng-container *ngFor="let record of filteredRecords" #table>
           <tr *ngIf="record.id !== -1">
             <td>{{ record.id }}</td>
-            <td>{{ record.doctor.name }}</td>
-            <td>{{ record.patient.name }}</td>
+            <td>{{ record.doctor.name + ' ' + record.doctor.lastName }}</td>
+            <td>{{ record.patient.name + ' ' + record.patient.lastName }}</td>
             <td>{{ record.date | date : 'dd/MM/YYYY' }}</td>
             <td>{{ record.category.description }}</td>
             <td>{{ record.reason }}</td>

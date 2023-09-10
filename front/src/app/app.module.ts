@@ -10,25 +10,37 @@ import { CreatePersonComponent } from './dialogs/create-person.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateRecordComponent } from 'src/app/dialogs/create-record.component';
 import { MedicalRecordComponent } from './medical-record/medical-record.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
-	declarations: [
-		AppComponent,
-		PersonsComponent,
-		Page404Component,
-		HeaderComponent,
-		CategoriesComponent,
-    MedicalRecordComponent
-
-	],
-	imports: [
-		BrowserModule,
-		BrowserAnimationsModule,
-		AppRoutingModule,
-		CreatePersonComponent,
-    CreateRecordComponent
-	],
-	providers: [],
-	bootstrap: [AppComponent]
+  declarations: [
+    AppComponent,
+    PersonsComponent,
+    Page404Component,
+    HeaderComponent,
+    CategoriesComponent,
+    MedicalRecordComponent,
+  ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    CreatePersonComponent,
+    CreateRecordComponent,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+  ],
+  providers: [],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

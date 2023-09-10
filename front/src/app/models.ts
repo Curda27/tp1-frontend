@@ -47,6 +47,6 @@ export type MedicalRecordFilters = {
   patient?: string;
   doctor?: string;
   categoryId?: number;
-  date_from?: string;
-  date_to?: string;
+  dateFrom?: Date;
+  dateTo?: Date;
 }
