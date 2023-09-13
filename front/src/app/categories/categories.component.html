@@ -1,19 +1,33 @@
-<div *ngIf="categories.length == 0; else no_categories">
-    <p>No hay categorias registradas</p>
-</div>
-<ng-template #no_categories>
-    <div class="tablecontainer">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Descripcion</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let category of categories">
+<button class="button" (click)="openCreateDialog()">
+    Crear
+</button>
+<div class="tablecontainer">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Descripcion</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngIf="availableCategories.length == 0; else table_data">
+                <td colspan="2" style="text-align: center">
+                    No hay categorias registradas
+                </td>
+            </tr>
+            <ng-template #table_data>
+                <tr *ngFor="let category of availableCategories">
                     <td>{{category.description}}</td>
+                    <td>
+                        <button class="button action" (click)="openEditDialog(category)">
+                            <i class="fa-solid fa-pencil"></i> Editar
+                        </button>
+                        <button class="button action" (click)="delete(category)">
+                            <i class="fa-solid fa-trash"></i> Borrar
+                        </button>
+                    </td>
                 </tr>
-            </tbody>
-        </table>
-    </div>
-</ng-template>
+            </ng-template>
+        </tbody>
+    </table>
+</div>

@@ -37,14 +37,6 @@ export class PersonsComponent implements OnInit {
 		});
 	}
 
-	refreshList(): void {
-		let personsString = localStorage.getItem('persons');
-		if (personsString) {
-			this.allPersons = JSON.parse(personsString);
-			this.availablePersons = this.allPersons.filter(person => person.id > 0);
-		}
-	}
-
 	openEditDialog(person: Person): void {
 		const dialogRef = this.dialog.open(CreatePersonComponent, {
 			//TODO: arreglar dimension
@@ -58,6 +50,7 @@ export class PersonsComponent implements OnInit {
 				this.allPersons[id] = this.dialogPerson;
 				this.availablePersons[id] = this.dialogPerson;
 				this.save();
+				this.refreshList();
 			}
 		});
 	}
@@ -68,7 +61,14 @@ export class PersonsComponent implements OnInit {
 		this.allPersons[id].id = -1;
 		this.save();
 		this.refreshList();
-		console.log(this.allPersons);
+	}
+
+	refreshList(): void {
+		let personsString = localStorage.getItem('persons');
+		if (personsString) {
+			this.allPersons = JSON.parse(personsString);
+			this.availablePersons = this.allPersons.filter(person => person.id > 0);
+		}
 	}
 
 	save(): void {
