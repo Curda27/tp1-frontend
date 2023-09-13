@@ -45,13 +45,30 @@ export class PersonsComponent implements OnInit {
 		}
 	}
 
-	delete(): void {
-		// TODO: no borrar si tiene uso e implementacion sin random xd
-		this.refreshList();
-		let id = Math.floor(Math.random() * this.availablePersons.length);
+	openEditDialog(person: Person): void {
+		const dialogRef = this.dialog.open(CreatePersonComponent, {
+			//TODO: arreglar dimension
+			width: '280px',
+			data: { ...person }
+		});
+		dialogRef.afterClosed().subscribe(result => {
+			if (result) {
+				let id = result.id - 1;
+				this.dialogPerson = result;
+				this.allPersons[id] = this.dialogPerson;
+				this.availablePersons[id] = this.dialogPerson;
+				this.save();
+			}
+		});
+	}
+
+	delete(person: Person): void {
+		// TODO: no borrar si tiene uso
+		let id = person.id - 1;
 		this.allPersons[id].id = -1;
-		this.availablePersons.splice(id, 1);
 		this.save();
+		this.refreshList();
+		console.log(this.allPersons);
 	}
 
 	save(): void {

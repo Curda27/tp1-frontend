@@ -1,27 +1,27 @@
-<div *ngIf="availablePersons.length == 0; else no_persons">
-    <p>No hay personas registradas</p>
-</div>
-<ng-template #no_persons>
-    <button class="button" (click)="openCreateDialog()">
-        Crear
-    </button>
-    <button class="button" (click)="delete()">
-        Borrar
-    </button>
-    <div class="tablecontainer">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Teléfono</th>
-                    <th>Email</th>
-                    <th>Cédula</th>
-                    <th>Doctor?</th>
-                </tr>
-            </thead>
-            <tbody>
+<button class="button" (click)="openCreateDialog()">
+    Crear
+</button>
+<div class="tablecontainer">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Teléfono</th>
+                <th>Email</th>
+                <th>Cédula</th>
+                <th>Doctor?</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngIf="availablePersons.length == 0; else table_data">
+                <td colspan="8" style="text-align: center">
+                    No hay personas registradas
+                </td>
+            </tr>
+            <ng-template #table_data>
                 <ng-container *ngFor="let person of availablePersons">
                     <tr *ngIf="person.id !== -1">
                         <td>{{person.id}}</td>
@@ -31,8 +31,17 @@
                         <td>{{person.email}}</td>
                         <td>{{person.cedula}}</td>
                         <td>{{person.flag_is_doctor}}</td>
+                        <td>
+                            <button class="button action" (click)="openEditDialog(person)">
+                                <i class="fa-solid fa-pencil"></i> Editar
+                            </button>
+                            <button class="button action" (click)="delete(person)">
+                                <i class="fa-solid fa-trash"></i> Borrar
+                            </button>
+                        </td>
                     </tr>
                 </ng-container>
-        </table>
-    </div>
-</ng-template>
+            </ng-template>
+        </tbody>
+    </table>
+</div>
