@@ -1,3 +1,5 @@
+import { Time } from "@angular/common";
+
 export class Category {
 	id: number;
 	description: string;
@@ -47,6 +49,21 @@ export type MedicalRecordFilters = {
   patient?: string;
   doctor?: string;
   categoryId?: number;
+  dateFrom?: Date;
+  dateTo?: Date;
+}
+
+export type Reservation = {
+  id: number;
+  patient: Person;
+  doctor: Person;
+  date: Date;
+  time: Time;
+}
+
+export type ReservationFilters = {
+  patient?: string;
+  doctor?: string;
   dateFrom?: Date;
   dateTo?: Date;
 }

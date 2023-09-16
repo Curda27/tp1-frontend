@@ -12,15 +12,6 @@
   </mat-form-field>
 
   <mat-form-field class="table-filters__item">
-    <mat-label>Categoría</mat-label>
-    <mat-select [(ngModel)]="tableFilters.categoryId">
-      <mat-option *ngFor="let category of categories" [value]="category.id">
-        {{ category.description }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <mat-form-field class="table-filters__item">
     <mat-label>Ingrese un rango de fechas</mat-label>
     <mat-date-range-input [rangePicker]="picker">
       <input
@@ -50,27 +41,30 @@
         <th>Doctor</th>
         <th>Paciente</th>
         <th>Fecha</th>
-        <th>Categoria</th>
-        <th>Motivo</th>
-        <th>Diágnostico</th>
+        <th>Horario</th>
+        <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngIf="filteredRecords.length == 0; else table_data">
+      <tr *ngIf="filteredReservations.length == 0; else table_data">
         <td colspan="7" style="text-align: center">
-          No hay fichas registradas
+          No hay reservas registradas
         </td>
       </tr>
       <ng-template #table_data>
-        <ng-container *ngFor="let record of filteredRecords" #table>
-          <tr *ngIf="record.id !== -1">
-            <td>{{ record.id }}</td>
-            <td>{{ record.doctor.name + ' ' + record.doctor.lastName }}</td>
-            <td>{{ record.patient.name + ' ' + record.patient.lastName }}</td>
-            <td>{{ record.date | date : 'dd/MM/YYYY' }}</td>
-            <td>{{ record.category.description }}</td>
-            <td>{{ record.reason }}</td>
-            <td>{{ record.diagnostic }}</td>
+        <ng-container *ngFor="let reservation of filteredReservations" #table>
+          <tr *ngIf="reservation.id !== -1">
+            <td>{{ reservation.id }}</td>
+            <td>{{ reservation.doctor.name + ' ' + reservation.doctor.lastName }}</td>
+            <td>{{ reservation.patient.name + ' ' + reservation.patient.lastName }}</td>
+            <td>{{ reservation.date | date : 'dd/MM/YYYY' }}</td>
+            <td>{{ reservation.time.hours | number:'2.0' }}:{{ reservation.time.minutes | number:'2.0' }} - 
+              {{ reservation.time.hours +1 | number:'2.0' }}:{{ reservation.time.minutes | number:'2.0' }}</td>
+            <td>
+                <button style="background-color: red;" class="button action" (click)="delete(reservation)">
+                    <i class="fa-solid fa-times"></i> Cancelar
+                </button>
+            </td>
           </tr>
         </ng-container>
       </ng-template>
