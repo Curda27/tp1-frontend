@@ -15,16 +15,23 @@ export class ReservationComponent implements OnInit {
 
   tableFilters: ReservationFilters = {};
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog) {
+    // Remove time date from tableFilters dates
+    this.tableFilters.dateFrom = new Date();
+    this.tableFilters.dateTo = new Date();
+    this.tableFilters.dateFrom.setHours(0, 0, 0, 0);
+    this.tableFilters.dateTo.setHours(0, 0, 0, 0);
+  }
 
   ngOnInit(): void {
     this.refreshList();
+    this.filter();
   }
 
   openCreateDialog(): void {
     const dialogRef = this.dialog.open(CreateReservationComponent, {
       //TODO: arreglar dimension
-      width: '280px',
+      width: '380px',
       data: {
         reservation: {} as Reservation,
         availableDoctors: JSON.parse(localStorage.getItem('persons') ?? '[]').filter((person: any) => person.flag_is_doctor),
