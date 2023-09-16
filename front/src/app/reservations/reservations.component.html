@@ -1,0 +1,68 @@
+<button class="button" (click)="openCreateDialog()">Crear</button>
+
+<div class="table-filters">
+  <mat-form-field hideRequiredMarker="true" class="table-filters__item">
+    <mat-label>Paciente</mat-label>
+    <input matInput [(ngModel)]="tableFilters.patient" />
+  </mat-form-field>
+
+  <mat-form-field hideRequiredMarker="true" class="table-filters__item">
+    <mat-label>Doctor</mat-label>
+    <input matInput [(ngModel)]="tableFilters.doctor" />
+  </mat-form-field>
+
+  <mat-form-field class="table-filters__item">
+    <mat-label>Ingrese un rango de fechas</mat-label>
+    <mat-date-range-input [rangePicker]="picker">
+      <input
+        matStartDate
+        placeholder="Fecha desde"
+        [(ngModel)]="tableFilters.dateFrom"
+      />
+      <input
+        matEndDate
+        placeholder="Fecha hasta"
+        [(ngModel)]="tableFilters.dateTo"
+      />
+    </mat-date-range-input>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+  </mat-form-field>
+  <div>
+    <button class="button" (click)="filter()">Filtrar</button>
+    <button class="button" (click)="clearFilters()">Limpiar</button>
+  </div>
+</div>
+<div class="tablecontainer">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Doctor</th>
+        <th>Paciente</th>
+        <th>Fecha</th>
+        <th>Horario</th>
+        <th>-</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngIf="filteredReservations.length == 0; else table_data">
+        <td colspan="7" style="text-align: center">
+          No hay reservas registradas
+        </td>
+      </tr>
+      <ng-template #table_data>
+        <ng-container *ngFor="let record of filteredReservations" #table>
+          <tr *ngIf="record.id !== -1">
+            <td>{{ record.id }}</td>
+            <td>{{ record.doctor.name + ' ' + record.doctor.lastName }}</td>
+            <td>{{ record.patient.name + ' ' + record.patient.lastName }}</td>
+            <td>{{ record.date | date : 'dd/MM/YYYY' }}</td>
+            <td>{{ record.time.hours | number:'2.0' }}:{{ record.time.minutes | number:'2.0' }} - 
+              {{ record.time.hours +1 | number:'2.0' }}:{{ record.time.minutes | number:'2.0' }}</td>
+          </tr>
+        </ng-container>
+      </ng-template>
+    </tbody>
+  </table>
+</div>

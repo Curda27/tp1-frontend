@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Category, MedicalRecord, Person } from '../models';
+import { Category, MedicalRecord, Person, Reservation } from '../models';
+import { Time } from "@angular/common";
 
 @Component({
 	selector: 'app-home',
@@ -41,9 +42,33 @@ export class HomeComponent {
         id: 2,
       },
     ];
+    const reservations: Reservation[] = [
+      {
+        patient: person1,
+        doctor: person2,
+        date: new Date("2023-09-01 00:00:00"),
+        time: {hours: 10, minutes: 0},
+        id: 1,
+      },
+      {
+        patient: person1,
+        doctor: person2,
+        date: new Date("2023-09-01 00:00:00"),
+        time: {hours: 11, minutes: 0},
+        id: 2,
+      },
+      {
+        patient: person3,
+        doctor: person4,
+        date: new Date("2023-09-02 00:00:00"),
+        time: {hours: 10, minutes: 0},
+        id: 3,
+      },
+    ];
     localStorage.setItem('persons', JSON.stringify(persons));
     localStorage.setItem('categories', JSON.stringify(categories));
     localStorage.setItem('medicalRecords', JSON.stringify(records));
+    localStorage.setItem('reservations', JSON.stringify(reservations))
 		alert("Datos Iniciales Cargados Correctamente");
 	}
 

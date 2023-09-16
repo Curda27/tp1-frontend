@@ -17,6 +17,7 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatNativeDateModule } from '@angular/material/core';
+import { ReservationComponent } from './reservations/reservations.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     HeaderComponent,
     CategoriesComponent,
     MedicalRecordComponent,
+    ReservationComponent,
   ],
   imports: [
     BrowserModule,
