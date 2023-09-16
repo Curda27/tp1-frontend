@@ -4,12 +4,14 @@ import {
   MatDialogModule,
   MatDialogRef,
 } from '@angular/material/dialog';
-import { MedicalRecord as Reservation } from '../models';
+import { Reservation, Person } from '../models';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import { CommonModule, Time } from '@angular/common';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-create-reservation',
@@ -22,12 +24,19 @@ import { MatSelectModule } from '@angular/material/select';
     FormsModule,
     MatButtonModule,
     MatSelectModule,
+    CommonModule,
+    MatDatepickerModule,
   ],
 })
 export class CreateReservationComponent {
   constructor(
     public dialogRef: MatDialogRef<CreateReservationComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Reservation
+    @Inject(MAT_DIALOG_DATA) public data: {
+      reservation: Reservation,
+      availableDoctors: Person[],
+      patients: Person[],
+      availableTimes: Time[],
+    }
   ) {}
 
   cancel(): void {

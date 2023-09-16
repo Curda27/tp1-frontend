@@ -41,6 +41,7 @@ import { ReservationComponent } from './reservations/reservations.component';
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

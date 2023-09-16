@@ -47,14 +47,14 @@ export class HomeComponent {
         patient: person1,
         doctor: person2,
         date: new Date("2023-09-01 00:00:00"),
-        time: {hours: 10, minutes: 0},
+        time: {hours: 10, minutes: 0} as Time,
         id: 1,
       },
       {
         patient: person1,
         doctor: person2,
         date: new Date("2023-09-01 00:00:00"),
-        time: {hours: 11, minutes: 0},
+        time: {hours: 11, minutes: 0} as Time,
         id: 2,
       },
       {
