@@ -30,7 +30,6 @@ export class ReservationComponent implements OnInit {
 
   openCreateDialog(): void {
     const dialogRef = this.dialog.open(CreateReservationComponent, {
-      //TODO: arreglar dimension
       width: '380px',
       data: {
         reservation: {} as Reservation,
