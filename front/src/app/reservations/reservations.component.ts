@@ -22,7 +22,6 @@ export class ReservationComponent implements OnInit {
   }
 
   openCreateDialog(): void {
-    console.log(JSON.parse(localStorage.getItem('persons') ?? '[]').filter((person: any) => !person.flag_is_doctor))
     const dialogRef = this.dialog.open(CreateReservationComponent, {
       //TODO: arreglar dimension
       width: '280px',
@@ -44,12 +43,12 @@ export class ReservationComponent implements OnInit {
           {hours: 19, minutes: 0},
           {hours: 20, minutes: 0},
         ] as Time[],
+        existingReservations: this.allReservation,
       },
     });
     dialogRef.afterClosed().subscribe((data) => {
       let reservation: Reservation = data?.reservation;
       if (!reservation) return;
-      console.log(reservation);
       reservation.id = this.allReservation.length + 1;
       this.allReservation.push(reservation);
       this.save();
@@ -60,6 +59,10 @@ export class ReservationComponent implements OnInit {
   refreshList(): void {
     const reservationsStr = localStorage.getItem('reservations') ?? '[]';
     this.allReservation = JSON.parse(reservationsStr);
+    this.allReservation = this.allReservation.map((reservation: any) => {
+      reservation.date = new Date(reservation.date);
+      return reservation;
+    });
     this.filteredReservations = this.allReservation;
   }
 
@@ -104,4 +107,10 @@ export class ReservationComponent implements OnInit {
   save(): void {
     localStorage.setItem('reservations', JSON.stringify(this.allReservation));
   }
+
+	delete(reservation: Reservation): void {
+		this.allReservation[reservation.id - 1].id = -1;
+		this.save();
+		this.refreshList();
+	}
 }

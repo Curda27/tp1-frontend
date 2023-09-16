@@ -4,27 +4,27 @@
 <div mat-dialog-actions>
   <mat-form-field>
     <mat-label>Doctor</mat-label>
-    <mat-select [(ngModel)]="data.reservation.doctor" placeholder="Seleccionar doctor">
+    <mat-select id="doctor_select" [(ngModel)]="data.reservation.doctor" placeholder="Seleccionar doctor" (selectionChange)="filterTimes()">
       <mat-option *ngFor="let doctor of data.availableDoctors" [value]="doctor">{{doctor.name}}
         {{doctor.lastName}}</mat-option>
     </mat-select>
   </mat-form-field>
   <mat-form-field>
     <mat-label>Paciente</mat-label>
-    <mat-select [(ngModel)]="data.reservation.patient" placeholder="Seleccionar paciente">
+    <mat-select id="patient_select" [(ngModel)]="data.reservation.patient" placeholder="Seleccionar paciente" (selectionChange)="filterTimes()">
       <mat-option *ngFor="let patient of data.patients" [value]="patient">{{patient.name}} {{patient.lastName}}</mat-option>
     </mat-select>
   </mat-form-field>
   <mat-form-field>
     <mat-label>Fecha</mat-label>
-    <input matInput [(ngModel)]="data.reservation.date" [matDatepicker]="picker" placeholder="Seleccionar fecha">
+    <input matInput id="date_select" [(ngModel)]="data.reservation.date" [matDatepicker]="picker" placeholder="Seleccionar fecha" (dateInput)="filterTimes()">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
   <mat-form-field>
     <mat-label>Hora</mat-label>
-    <mat-select [(ngModel)]="data.reservation.time" placeholder="Seleccionar hora">
-      <mat-option *ngFor="let time of data.availableTimes" [value]="time">{{ time.hours | number:'2.0' }}:{{ time.minutes | number:'2.0' }} - 
+    <mat-select id="time_select" [(ngModel)]="data.reservation.time" placeholder="{{time_placeholder}}">
+      <mat-option *ngFor="let time of availableTimes" [value]="time">{{ time.hours | number:'2.0' }}:{{ time.minutes | number:'2.0' }} - 
         {{ time.hours +1 | number:'2.0' }}:{{ time.minutes | number:'2.0' }}</mat-option>
     </mat-select>
   </mat-form-field>
