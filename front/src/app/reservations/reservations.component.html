@@ -1,12 +1,12 @@
 <button class="button" (click)="openCreateDialog()">Crear</button>
 
 <div class="table-filters">
-  <mat-form-field hideRequiredMarker="true" class="table-filters__item">
+  <mat-form-field class="table-filters__item">
     <mat-label>Paciente</mat-label>
     <input matInput [(ngModel)]="tableFilters.patient" />
   </mat-form-field>
 
-  <mat-form-field hideRequiredMarker="true" class="table-filters__item">
+  <mat-form-field class="table-filters__item">
     <mat-label>Doctor</mat-label>
     <input matInput [(ngModel)]="tableFilters.doctor" />
   </mat-form-field>
@@ -28,10 +28,10 @@
     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-date-range-picker #picker></mat-date-range-picker>
   </mat-form-field>
-  <div>
-    <button class="button" (click)="filter()">Filtrar</button>
-    <button class="button" (click)="clearFilters()">Limpiar</button>
-  </div>
+</div>
+<div>
+  <button class="button" (click)="filter()">Filtrar</button>
+  <button class="button" (click)="clearFilters()">Limpiar</button>
 </div>
 <div class="tablecontainer">
   <table class="table">
