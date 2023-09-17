@@ -21,8 +21,7 @@ export class CategoriesComponent {
 	openCreateDialog(): void {
 		this.dialogCategory = new Category(0, '');
 		const dialogRef = this.dialog.open(CreateCategoryComponent, {
-			//TODO: arreglar dimension
-			width: '280px',
+			width: '380px',
 			data: { ...this.dialogCategory }
 		});
 		dialogRef.afterClosed().subscribe(result => {
@@ -39,8 +38,7 @@ export class CategoriesComponent {
 
 	openEditDialog(category: Category): void {
 		const dialogRef = this.dialog.open(CreateCategoryComponent, {
-			//TODO: arreglar dimension
-			width: '280px',
+			width: '380px',
 			data: { ...category }
 		});
 		dialogRef.afterClosed().subscribe(result => {

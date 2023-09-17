@@ -21,8 +21,7 @@ export class PersonsComponent implements OnInit {
 	openCreateDialog(): void {
 		this.dialogPerson = new Person(0, '', '', '', '', '', false)
 		const dialogRef = this.dialog.open(CreatePersonComponent, {
-			//TODO: arreglar dimension
-			width: '280px',
+			width: '380px',
 			data: { ...this.dialogPerson }
 		});
 		dialogRef.afterClosed().subscribe(result => {
@@ -39,8 +38,7 @@ export class PersonsComponent implements OnInit {
 
 	openEditDialog(person: Person): void {
 		const dialogRef = this.dialog.open(CreatePersonComponent, {
-			//TODO: arreglar dimension
-			width: '280px',
+			width: '380px',
 			data: { ...person }
 		});
 		dialogRef.afterClosed().subscribe(result => {

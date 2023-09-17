@@ -83,11 +83,15 @@ div.tablecontainer {
 html, body { height: 100%; }
 
 .table-filters {
-  display: flex;
-  padding: 10px;
-  align-items: flex-start;
+    display: flex;
+    padding: 10px;
+    align-items: flex-start;
 }
 
 .table-filters__item {
-  margin-right: 10px;
+    margin-right: 10px;
+}
+
+mat-form-field {
+    width: 100%;
 }

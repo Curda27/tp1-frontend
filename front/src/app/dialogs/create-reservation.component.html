@@ -1,8 +1,5 @@
 <h1 mat-dialog-title>Crear Ficha</h1>
 <div mat-dialog-content class="dialog">
-</div>
-<div mat-dialog-actions>
-  <div>
   <mat-form-field>
     <mat-label>Doctor</mat-label>
     <mat-select id="doctor_select" [(ngModel)]="data.reservation.doctor" placeholder="Seleccionar doctor" (selectionChange)="filterTimes()">
@@ -30,6 +27,7 @@
     </mat-select>
   </mat-form-field>
   </div>
+<div mat-dialog-actions>
   <button mat-button (click)="cancel()">Cancelar</button>
   <button mat-button (click)="accept()">Confirmar</button>
 </div>
