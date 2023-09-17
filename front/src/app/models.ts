@@ -29,41 +29,43 @@ export class Person {
 		this.cedula = cedula;
 		this.flag_is_doctor = flag_is_doctor;
 	}
+}
 
-	update(person: Partial<Person>) {
-		Object.assign(this, person);
-	}
+export type PersonFilter = {
+	name?: string;
+	lastName?: string;
+	flag_is_doctor?: string;
 }
 
 export type MedicalRecord = {
-  id: number;
-  patient: Person;
-  doctor: Person;
-  date: Date;
-  reason: string;
-  category: Category;
-  diagnostic: string;
+	id: number;
+	patient: Person;
+	doctor: Person;
+	date: Date;
+	reason: string;
+	category: Category;
+	diagnostic: string;
 }
 
 export type MedicalRecordFilters = {
-  patient?: string;
-  doctor?: string;
-  categoryId?: number;
-  dateFrom?: Date;
-  dateTo?: Date;
+	patient?: string;
+	doctor?: string;
+	categoryId?: number;
+	dateFrom?: Date;
+	dateTo?: Date;
 }
 
 export type Reservation = {
-  id: number;
-  patient: Person;
-  doctor: Person;
-  date: Date;
-  time: Time;
+	id: number;
+	patient: Person;
+	doctor: Person;
+	date: Date;
+	time: Time;
 }
 
 export type ReservationFilters = {
-  patient?: string;
-  doctor?: string;
-  dateFrom?: Date;
-  dateTo?: Date;
+	patient?: string;
+	doctor?: string;
+	dateFrom?: Date;
+	dateTo?: Date;
 }

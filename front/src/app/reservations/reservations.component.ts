@@ -104,6 +104,7 @@ export class ReservationComponent implements OnInit {
         (record) => new Date(record.date) <= new Date(date_to)
       );
     }
+    this.filteredReservations = this.filteredReservations.filter(reservation => reservation.id > 0);
   }
   clearFilters() {
     this.tableFilters = {};
@@ -117,6 +118,6 @@ export class ReservationComponent implements OnInit {
 	delete(reservation: Reservation): void {
 		this.allReservation[reservation.id - 1].id = -1;
 		this.save();
-		this.refreshList();
+		this.filter();
 	}
 }

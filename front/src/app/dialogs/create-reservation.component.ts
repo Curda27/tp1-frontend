@@ -47,6 +47,7 @@ export class CreateReservationComponent {
     this.dialogRef.close();
   }
 
+  //TODO: no verifica datos vacios  
   accept(): void {
     const values = Object.values(this.data);
     if (values.length === 0 || values.some((value) => !value)) {

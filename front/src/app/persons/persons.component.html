@@ -1,6 +1,27 @@
 <button class="button" (click)="openCreateDialog()">
     Crear
 </button>
+<div class="table-filters">
+    <mat-form-field class="table-filters__item">
+        <mat-label>Nombre</mat-label>
+        <input matInput [(ngModel)]="personFilters.name">
+    </mat-form-field>
+    <mat-form-field class="table-filters__item">
+        <mat-label>Apellido</mat-label>
+        <input matInput [(ngModel)]="personFilters.lastName">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-select [(ngModel)]="personFilters.flag_is_doctor">
+            <mat-option value="everyone">Todos</mat-option>
+            <mat-option value="doctors">Doctores</mat-option>
+            <mat-option value="patients">Pacientes</mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>
+<div>
+    <button class="button" (click)="filter()">Filtrar</button>
+    <button class="button" (click)="clearFilters()">Limpiar</button>
+</div>
 <div class="tablecontainer">
     <table class="table">
         <thead>
@@ -16,13 +37,13 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngIf="availablePersons.length == 0; else table_data">
+            <tr *ngIf="filteredPersons.length == 0; else table_data">
                 <td colspan="8" style="text-align: center">
                     No hay personas registradas
                 </td>
             </tr>
             <ng-template #table_data>
-                <ng-container *ngFor="let person of availablePersons">
+                <ng-container *ngFor="let person of filteredPersons">
                     <tr *ngIf="person.id !== -1">
                         <td>{{person.id}}</td>
                         <td>{{person.name}}</td>
