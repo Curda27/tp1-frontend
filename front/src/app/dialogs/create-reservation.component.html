@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Crear Ficha</h1>
+<h1 mat-dialog-title>Crear Reserva</h1>
 <div mat-dialog-content class="dialog">
   <mat-form-field>
     <mat-label>Doctor</mat-label>
@@ -22,11 +22,11 @@
   <mat-form-field>
     <mat-label>Hora</mat-label>
     <mat-select id="time_select" [(ngModel)]="data.reservation.time" placeholder="{{time_placeholder}}">
-      <mat-option *ngFor="let time of availableTimes" [value]="time">{{ time.hours | number:'2.0' }}:{{ time.minutes | number:'2.0' }} - 
+      <mat-option *ngFor="let time of availableTimes" [value]="time">{{ time.hours | number:'2.0' }}:{{ time.minutes | number:'2.0' }} -
         {{ time.hours +1 | number:'2.0' }}:{{ time.minutes | number:'2.0' }}</mat-option>
     </mat-select>
   </mat-form-field>
-  </div>
+</div>
 <div mat-dialog-actions>
   <button mat-button (click)="cancel()">Cancelar</button>
   <button mat-button (click)="accept()">Confirmar</button>

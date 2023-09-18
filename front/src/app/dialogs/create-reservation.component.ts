@@ -47,7 +47,7 @@ export class CreateReservationComponent {
     this.dialogRef.close();
   }
 
-  //TODO: no verifica datos vacios  
+  //TODO: no verifica datos vacios
   accept(): void {
     const values = Object.values(this.data);
     if (values.length === 0 || values.some((value) => !value)) {
@@ -66,18 +66,19 @@ export class CreateReservationComponent {
     } else if (!reservation.date) {
       this.time_placeholder = "Seleccionar Fecha primero"
     } else {
-      this.availableTimes = this.data.availableTimes.filter((x: Time) => 
-        this.data.existingReservations.find((res: Reservation) => 
+      this.time_placeholder = "Seleccion Hora";
+      this.availableTimes = this.data.availableTimes.filter((x: Time) =>
+        this.data.existingReservations.find((res: Reservation) =>
           (
             res.date.getFullYear() == this.data.reservation.date.getFullYear() &&
             res.date.getMonth() == this.data.reservation.date.getMonth() &&
-            res.date.getDay() == this.data.reservation.date.getDay() && 
+            res.date.getDay() == this.data.reservation.date.getDay() &&
             res.doctor.id == this.data.reservation.doctor.id &&
             res.time.hours == x.hours
           ) || (
             res.date.getFullYear() == this.data.reservation.date.getFullYear() &&
             res.date.getMonth() == this.data.reservation.date.getMonth() &&
-            res.date.getDay() == this.data.reservation.date.getDay() && 
+            res.date.getDay() == this.data.reservation.date.getDay() &&
             res.patient.id == this.data.reservation.patient.id &&
             res.time.hours == x.hours
           )

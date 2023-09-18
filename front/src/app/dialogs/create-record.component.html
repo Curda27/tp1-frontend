@@ -1,8 +1,5 @@
 <h1 mat-dialog-title>Crear Ficha</h1>
 <div mat-dialog-content class="dialog">
-</div>
-<div mat-dialog-actions>
-  <div>
   <mat-form-field>
     <mat-label>Paciente</mat-label>
     <mat-select id="patient_select" [(ngModel)]="data.medicalRecord.patient" [compareWith]="comparePacients" placeholder="Seleccionar paciente" (selectionChange)="fillMedicalRecord()">
@@ -16,7 +13,6 @@
         {{doctor.lastName}}</mat-option>
     </mat-select>
   </mat-form-field>
-  
   <mat-form-field>
     <mat-label>Fecha</mat-label>
     <input matInput id="date_select" [(ngModel)]="data.medicalRecord.date" [matDatepicker]="picker" placeholder="Seleccionar fecha">
@@ -38,7 +34,7 @@
     <input matInput id="reason_input" [(ngModel)]="data.medicalRecord.reason" placeholder="">
   </mat-form-field>
   </div>
-
+<div mat-dialog-actions>
   <button mat-button (click)="cancel()">Cancelar</button>
   <button mat-button (click)="accept()">Confirmar</button>
 </div>
