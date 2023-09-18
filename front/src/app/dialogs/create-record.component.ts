@@ -38,9 +38,18 @@ export class CreateRecordComponent {
       existingReservations: Reservation[],
       allCategories: Category[],
       medicalRecord: MedicalRecord,
+      reservationOrigin: Reservation,
     },
     private snackBar: SnackbarService
-  ) { }
+  ) { 
+    if (this.data.reservationOrigin) {
+      this.data.medicalRecord = {
+        patient: data.reservationOrigin.patient,
+        doctor: data.reservationOrigin.doctor,
+        date: data.reservationOrigin.date,
+      }as MedicalRecord;
+    }
+  }
 
   compareDoctors(doctor1: Person, doctor2: Person): boolean {
     if (!doctor1 || !doctor2) return false;

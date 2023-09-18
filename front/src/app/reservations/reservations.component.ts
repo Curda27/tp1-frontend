@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Category, Reservation, ReservationFilters } from '../models';
+import { Category, Reservation, ReservationFilters, MedicalRecord } from '../models';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateReservationComponent } from '../dialogs/create-reservation.component';
+import { CreateRecordComponent } from '../dialogs/create-record.component';
 import { Time } from "@angular/common";
 
 @Component({
@@ -120,4 +121,28 @@ export class ReservationComponent implements OnInit {
 		this.save();
 		this.filter();
 	}
+
+  openCreateDialogMedicalRecord(reservation: Reservation): void {
+    const dialogRef = this.dialog.open(CreateRecordComponent, {
+      width: '380px',
+      data: {
+        availableDoctors: JSON.parse(localStorage.getItem('persons') ?? '[]').filter((person: any) => person.flag_is_doctor),
+        patients: JSON.parse(localStorage.getItem('persons') ?? '[]').filter((person: any) => !person.flag_is_doctor),
+        existingReservations: JSON.parse(localStorage.getItem('reservations') ?? '[]'),
+        allCategories: JSON.parse(localStorage.getItem('categories') ?? '[]'),
+        medicalRecord: {} as MedicalRecord,
+        reservationOrigin: reservation,
+      },
+    });
+    dialogRef.afterClosed().subscribe((record:MedicalRecord) => {
+      if (!record) return;
+      const medicalRecordsStr = localStorage.getItem('medicalRecords') ?? '[]';
+      let allRecords : MedicalRecord[] = JSON.parse(medicalRecordsStr);
+      record.id = allRecords.length + 1;
+      allRecords = [...allRecords, record];
+      localStorage.setItem('medicalRecords', JSON.stringify(allRecords));
+    });
+  }
 }
+
+

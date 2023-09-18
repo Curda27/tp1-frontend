@@ -60,10 +60,15 @@
             <td>{{ reservation.date | date : 'dd/MM/YYYY' }}</td>
             <td>{{ reservation.time.hours | number:'2.0' }}:{{ reservation.time.minutes | number:'2.0' }} - 
               {{ reservation.time.hours +1 | number:'2.0' }}:{{ reservation.time.minutes | number:'2.0' }}</td>
-            <td  style="min-width: 130px; width: 130px">
+            <td  style="min-width: 130px; width: 300px">
+              <div>
                 <button style="background-color: red;" class="button action" (click)="delete(reservation)">
                     <i class="fa-solid fa-times"></i> Cancelar
                 </button>
+                <button style="background-color: green;" class="button action" (click)="openCreateDialogMedicalRecord(reservation)">
+                  <i class="fa fa-id-card"></i> Crear Ficha
+                </button>
+              </div>
             </td>
           </tr>
         </ng-container>
