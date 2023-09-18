@@ -5,6 +5,7 @@
     <table class="table">
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Descripcion</th>
                 <th>Acciones</th>
             </tr>
@@ -17,8 +18,9 @@
             </tr>
             <ng-template #table_data>
                 <tr *ngFor="let category of availableCategories">
+                    <td>{{category.id}}</td>
                     <td>{{category.description}}</td>
-                    <td>
+                    <td style="min-width: 220px; width: 220px">
                         <button class="button action" (click)="openEditDialog(category)">
                             <i class="fa-solid fa-pencil"></i> Editar
                         </button>
