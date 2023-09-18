@@ -2,6 +2,43 @@
 <div mat-dialog-content class="dialog">
 </div>
 <div mat-dialog-actions>
-    <button mat-button (click)="cancel()">Cancelar</button>
-    <button mat-button (click)="accept()">Confirmar</button>
+  <div>
+  <mat-form-field>
+    <mat-label>Paciente</mat-label>
+    <mat-select id="patient_select" [(ngModel)]="data.medicalRecord.patient" [compareWith]="comparePacients" placeholder="Seleccionar paciente" (selectionChange)="fillMedicalRecord()">
+      <mat-option *ngFor="let patient of data.patients" [value]="patient">{{patient.name}} {{patient.lastName}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Doctor</mat-label>
+    <mat-select id="doctor_select" [(ngModel)]="data.medicalRecord.doctor" [compareWith]="compareDoctors" placeholder="Seleccionar doctor">
+      <mat-option *ngFor="let doctor of data.availableDoctors" [value]="doctor">{{doctor.name}}
+        {{doctor.lastName}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  
+  <mat-form-field>
+    <mat-label>Fecha</mat-label>
+    <input matInput id="date_select" [(ngModel)]="data.medicalRecord.date" [matDatepicker]="picker" placeholder="Seleccionar fecha">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Categoria</mat-label>
+    <mat-select id="category_select" [(ngModel)]="data.medicalRecord.category" placeholder="Seleccionar categoria">
+      <mat-option *ngFor="let category of data.allCategories" [value]="category">{{category.description}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Diagnostico</mat-label>
+    <input matInput id="diagnosis_input" [(ngModel)]="data.medicalRecord.diagnostic" placeholder="">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Razón de la consulta</mat-label>
+    <input matInput id="reason_input" [(ngModel)]="data.medicalRecord.reason" placeholder="">
+  </mat-form-field>
+  </div>
+
+  <button mat-button (click)="cancel()">Cancelar</button>
+  <button mat-button (click)="accept()">Confirmar</button>
 </div>
