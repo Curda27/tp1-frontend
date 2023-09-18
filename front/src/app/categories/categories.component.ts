@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Category, MedicalRecord } from '../models';
+import {Category, MedicalRecord, Person, Reservation} from '../models';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateCategoryComponent } from '../dialogs/create-category.component';
 import { SnackbarService } from '../snackbarservice';
@@ -48,6 +48,7 @@ export class CategoriesComponent {
 				this.dialogCategory = result;
 				this.allCategories[id] = this.dialogCategory;
 				this.save();
+        this.updateModels(result);
 				this.refreshList();
 			}
 		});
@@ -76,4 +77,18 @@ export class CategoriesComponent {
 	save(): void {
 		localStorage.setItem('categories', JSON.stringify(this.allCategories));
 	}
+
+  updateModels(category: Category){
+    const medicalRecords = JSON.parse(
+      localStorage.getItem('medicalRecords') || '[]'
+    ) as MedicalRecord[];
+
+    medicalRecords.forEach((record) => {
+      if (record.category.id === category.id) {
+        record.category = category;
+      }
+    });
+
+    localStorage.setItem('medicalRecords', JSON.stringify(medicalRecords));
+  }
 }
