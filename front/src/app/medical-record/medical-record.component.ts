@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Category, MedicalRecord, MedicalRecordFilters } from '../models';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateRecordComponent } from '../dialogs/create-record.component';
+import * as XLSX from 'xlsx';
+import jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-record',
@@ -14,7 +16,7 @@ export class MedicalRecordComponent implements OnInit {
 
   tableFilters: MedicalRecordFilters = {};
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.refreshList();
@@ -97,5 +99,32 @@ export class MedicalRecordComponent implements OnInit {
 
   save(): void {
     localStorage.setItem('medicalRecords', JSON.stringify(this.allRecords));
+  }
+
+  excel(): void {
+    let fileName = 'Fichas.xlsx';
+    // get table
+    let element = document.getElementsByClassName("table")[0];
+    // pass table to xlsx
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+    // generate workbook and add the worksheet
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Hoja1');
+    // save to file
+    XLSX.writeFile(wb, fileName);
+  }
+
+  pdf(): void {
+    let doc = new jsPDF('p', 'pt', 'a4');
+    let element = document.getElementsByClassName("table")[0] as HTMLElement;
+    doc.html(element, {
+      html2canvas: {
+        scale: 0.7
+      },
+      callback: function (doc: jsPDF) {
+        doc.save('Fichas.pdf');
+      },
+      margin: [20, 20, 20, 40],
+    });
   }
 }
