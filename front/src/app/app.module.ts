@@ -12,7 +12,7 @@ import { CreateRecordComponent } from 'src/app/dialogs/create-record.component';
 import { MedicalRecordComponent } from './medical-record/medical-record.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
@@ -27,7 +27,7 @@ import { ReservationComponent } from './reservations/reservations.component';
     HeaderComponent,
     CategoriesComponent,
     MedicalRecordComponent,
-    ReservationComponent,
+    ReservationComponent
   ],
   imports: [
     BrowserModule,
@@ -42,6 +42,7 @@ import { ReservationComponent } from './reservations/reservations.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent],

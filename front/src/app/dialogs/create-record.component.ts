@@ -12,7 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { CommonModule } from '@angular/common';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-
+import { SnackbarService } from '../snackbarservice';
 
 @Component({
   selector: 'app-create-record',
@@ -29,7 +29,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatDatepickerModule,
   ],
 })
-
 export class CreateRecordComponent {
   constructor(
     public dialogRef: MatDialogRef<CreateRecordComponent>,
@@ -39,30 +38,31 @@ export class CreateRecordComponent {
       existingReservations: Reservation[],
       allCategories: Category[],
       medicalRecord: MedicalRecord,
-    }
-  ) {}
+    },
+    private snackBar: SnackbarService
+  ) { }
 
   compareDoctors(doctor1: Person, doctor2: Person): boolean {
     if (!doctor1 || !doctor2) return false;
     else return doctor1.id === doctor2.id;
-    
+
   }
 
   comparePacients(pacient1: Person, pacient2: Person): boolean {
     if (!pacient1 || !pacient2) return false;
     else return pacient1.id === pacient2.id;
-    
+
   }
-  
+
   cancel(): void {
     this.dialogRef.close();
   }
 
   accept(): void {
     const medicalRecord = this.data.medicalRecord;
-    
+
     if (!medicalRecord.category || !medicalRecord.date || !medicalRecord.diagnostic || !medicalRecord.doctor || !medicalRecord.patient || !medicalRecord.reason) {
-      alert('Datos Incorrectos. Por favor, complete todos los campos obligatorios.');
+      this.snackBar.open('Por favor, rellene todos los campos');
       return;
     }
     this.dialogRef.close(this.data.medicalRecord);
@@ -70,7 +70,7 @@ export class CreateRecordComponent {
 
   fillMedicalRecord(): void {
     let medicalRecord = this.data.medicalRecord;
-  
+
     if (medicalRecord.patient) {
       const availableReservation = this.data.existingReservations.filter(
         (res: Reservation) => res.patient.id === medicalRecord.patient.id && res.id != -1
@@ -101,9 +101,9 @@ export class CreateRecordComponent {
           category: null as any,
           diagnostic: null as any,
           reason: null as any,
-         };
+        };
         this.data.medicalRecord = medicalRecord;
-        
+
       } else {
         medicalRecord = {
           patient: medicalRecord.patient,

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Category, MedicalRecord } from '../models';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateCategoryComponent } from '../dialogs/create-category.component';
+import { SnackbarService } from '../snackbarservice';
 
 @Component({
 	selector: 'app-categories',
@@ -12,7 +13,7 @@ export class CategoriesComponent {
 	availableCategories: Category[] = [];
 	dialogCategory!: Category;
 
-	constructor(public dialog: MatDialog) { }
+	constructor(public dialog: MatDialog, private snackBar: SnackbarService) { }
 
 	ngOnInit(): void {
 		this.refreshList();
@@ -56,7 +57,7 @@ export class CategoriesComponent {
 		let id = category.id;
 		let records = JSON.parse(localStorage.getItem('medicalRecords') || '[]') as MedicalRecord[];
 		if (records.find(record => record.category.id === id)) {
-			alert('No puedes borrar una categoria en uso!');
+			this.snackBar.open('No puedes borrar una categoria en uso!');
 			return;
 		}
 		this.allCategories[id - 1].id = -1;

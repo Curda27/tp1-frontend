@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MedicalRecord, Person, PersonFilter, Reservation } from '../models';
 import { MatDialog } from '@angular/material/dialog';
 import { CreatePersonComponent } from '../dialogs/create-person.component';
+import { SnackbarService } from '../snackbarservice';
 
 @Component({
 	selector: 'app-persons',
@@ -13,7 +14,7 @@ export class PersonsComponent implements OnInit {
 	dialogPerson!: Person;
 	personFilters: PersonFilter = { flag_is_doctor: "everyone" };
 
-	constructor(public dialog: MatDialog) { }
+	constructor(public dialog: MatDialog, private snackBar: SnackbarService) { }
 
 	ngOnInit(): void {
 		this.refreshList();
@@ -57,15 +58,12 @@ export class PersonsComponent implements OnInit {
 	delete(person: Person): void {
 		let id = person.id;
 		let records = JSON.parse(localStorage.getItem('medicalRecords') || '[]') as MedicalRecord[];
-		if (records.find(record => record.doctor.id === id)
-			|| records.find(record => record.patient.id === id)) {
-			alert('No puedes borrar una persona en uso!');
-			return;
-		}
 		let reservations = JSON.parse(localStorage.getItem('reservations') || '[]') as Reservation[];
-		if (reservations.find(reservation => reservation.doctor.id === id)
+		if (records.find(record => record.doctor.id === id)
+			|| records.find(record => record.patient.id === id)
+			|| reservations.find(reservation => reservation.doctor.id === id)
 			|| reservations.find(reservation => reservation.patient.id === id)) {
-			alert('No puedes borrar una persona en uso!');
+			this.snackBar.open('No puedes borrar una persona en uso!');
 			return;
 		}
 		this.allPersons[id - 1].id = -1;

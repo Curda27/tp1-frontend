@@ -6,6 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import { SnackbarService } from '../snackbarservice';
 
 @Component({
 	selector: 'app-create-category',
@@ -18,6 +19,7 @@ export class CreateCategoryComponent {
 	constructor(
 		public dialogRef: MatDialogRef<CreateCategoryComponent>,
 		@Inject(MAT_DIALOG_DATA) public data: Category,
+		private snackBar: SnackbarService
 	) { }
 
 	cancel(): void {
@@ -26,7 +28,7 @@ export class CreateCategoryComponent {
 
 	accept(): void {
 		if (Object.values(this.data).some(value => value === '')) {
-			alert('Datos Incorrectos');
+			this.snackBar.open('Por favor, rellene todos los campos');
 			return;
 		}
 		this.dialogRef.close(this.data);

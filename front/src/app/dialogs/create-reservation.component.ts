@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelect, MatSelectModule } from '@angular/material/select';
 import { CommonModule, Time } from '@angular/common';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { SnackbarService } from '../snackbarservice';
 
 @Component({
   selector: 'app-create-reservation',
@@ -40,7 +41,8 @@ export class CreateReservationComponent {
       patients: Person[],
       availableTimes: Time[],
       existingReservations: Reservation[]
-    }
+    },
+    private snackBar: SnackbarService
   ) {}
 
   cancel(): void {
@@ -51,7 +53,7 @@ export class CreateReservationComponent {
   accept(): void {
     const values = Object.values(this.data);
     if (values.length === 0 || values.some((value) => !value)) {
-      alert('Datos Incorrectos');
+      this.snackBar.open('Por favor, rellene todos los campos');
       return;
     }
     this.dialogRef.close(this.data);
