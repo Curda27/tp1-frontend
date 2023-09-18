@@ -115,16 +115,16 @@ export class MedicalRecordComponent implements OnInit {
   }
 
   pdf(): void {
-    let doc = new jsPDF('p', 'pt', 'a4');
+    let doc = new jsPDF('l', 'pt', 'a4');
     let element = document.getElementsByClassName("table")[0] as HTMLElement;
     doc.html(element, {
       html2canvas: {
-        scale: 0.7
+        scale: 0.45,
       },
       callback: function (doc: jsPDF) {
         doc.save('Fichas.pdf');
       },
-      margin: [20, 20, 20, 40],
+      margin: [20, 20, 20, 0],
     });
   }
 }
