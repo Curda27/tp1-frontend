@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Category } from '../models';
+import { Category, MedicalRecord } from '../models';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateCategoryComponent } from '../dialogs/create-category.component';
 
@@ -53,9 +53,13 @@ export class CategoriesComponent {
 	}
 
 	delete(category: Category): void {
-		// TODO: no borrar si tiene uso
-		let id = category.id - 1;
-		this.allCategories[id].id = -1;
+		let id = category.id;
+		let records = JSON.parse(localStorage.getItem('medicalRecords') || '[]') as MedicalRecord[];
+		if (records.find(record => record.category.id === id)) {
+			alert('No puedes borrar una categoria en uso!');
+			return;
+		}
+		this.allCategories[id - 1].id = -1;
 		this.save();
 		this.refreshList();
 	}

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Person, PersonFilter } from '../models';
+import { MedicalRecord, Person, PersonFilter, Reservation } from '../models';
 import { MatDialog } from '@angular/material/dialog';
 import { CreatePersonComponent } from '../dialogs/create-person.component';
 
@@ -55,9 +55,20 @@ export class PersonsComponent implements OnInit {
 	}
 
 	delete(person: Person): void {
-		// TODO: no borrar si tiene uso
-		let id = person.id - 1;
-		this.allPersons[id].id = -1;
+		let id = person.id;
+		let records = JSON.parse(localStorage.getItem('medicalRecords') || '[]') as MedicalRecord[];
+		if (records.find(record => record.doctor.id === id)
+			|| records.find(record => record.patient.id === id)) {
+			alert('No puedes borrar una persona en uso!');
+			return;
+		}
+		let reservations = JSON.parse(localStorage.getItem('reservations') || '[]') as Reservation[];
+		if (reservations.find(reservation => reservation.doctor.id === id)
+			|| reservations.find(reservation => reservation.patient.id === id)) {
+			alert('No puedes borrar una persona en uso!');
+			return;
+		}
+		this.allPersons[id - 1].id = -1;
 		this.save();
 		this.filter();
 	}
