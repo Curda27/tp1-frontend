@@ -34,6 +34,7 @@ export class PersonsComponent implements OnInit {
 				this.dialogPerson.id = this.allPersons.length + 1;
 				this.allPersons.push(this.dialogPerson);
 				this.filteredPersons.push(this.dialogPerson);
+        this.updateModels(result);
 				this.save();
 			}
 		});
@@ -105,4 +106,27 @@ export class PersonsComponent implements OnInit {
 	save(): void {
 		localStorage.setItem('persons', JSON.stringify(this.allPersons));
 	}
+
+  updateModels(person: Person){
+    const medicalRecords = JSON.parse(
+      localStorage.getItem('medicalRecords') || '[]'
+    ) as MedicalRecord[];
+    const reservations = JSON.parse(
+      localStorage.getItem('reservations') || '[]'
+    ) as Reservation[];
+
+    const updatePersonOrDoctor = (item: MedicalRecord | Reservation) => {
+      if (item.doctor.id === person.id) {
+        item.doctor = person;
+      }
+      if (item.patient.id === person.id) {
+        item.patient = person;
+      }
+    };
+    medicalRecords.forEach(updatePersonOrDoctor);
+    reservations.forEach(updatePersonOrDoctor);
+
+    localStorage.setItem('medicalRecords', JSON.stringify(medicalRecords));
+    localStorage.setItem('reservations', JSON.stringify(reservations));
+  }
 }
